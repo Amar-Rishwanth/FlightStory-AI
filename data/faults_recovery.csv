@@ -1,0 +1,22 @@
+fault_timestamp,node_name,incident_id,error_code,fault_category,fault_severity,affected_component,root_cause_hypothesis,recovery_method,recovery_status,recovery_timestamp,recovery_duration_sec
+2024-10-15T09:00:45Z,NODE_A,INC_001,ERR_THRESHOLD_BREACH,performance,warning,primary_control_loop,Load exceeds primary threshold by 15%,Increase threshold parameter,PENDING,null,null
+2024-10-15T09:15:00Z,NODE_A,INC_001,ERR_PERF_DEGRADATION,performance,warning,control_system,Performance metrics elevated due to sustained load,Apply guidance GUID_0005,IN_PROGRESS,2024-10-15T09:30:00Z,900
+2024-10-15T10:30:00Z,NODE_A,INC_001,ERR_TRANSIENT_FAULT,hardware,critical,cooling_subsystem,Transient fault detected in cooling feedback,Restart subsystem per GUID_0003,IN_PROGRESS,2024-10-15T12:45:00Z,12900
+2024-10-15T09:45:15Z,NODE_B,INC_002,ERR_CONFIG_MISMATCH,configuration,warning,system_config,Configuration drift detected vs. NODE_A,Load backup config v2,COMPLETED,2024-10-15T09:16:45Z,-1728
+2024-10-15T10:15:45Z,NODE_B,INC_002,ERR_OSCILLATION,performance,warning,control_dynamics,Damping oscillations observed,Adjust damping factor per GUID_0009,COMPLETED,2024-10-15T10:45:00Z,1755
+2024-10-15T12:15:00Z,NODE_B,INC_002,ERR_NETWORK_SPIKE,communication,warning,network_stack,Unexpected network traffic spike,Load snapshot and suppress alerts,COMPLETED,2024-10-15T12:35:00Z,1200
+2024-10-15T10:15:30Z,NODE_C,INC_003,ERR_LOAD_EXCURSION,performance,warning,primary_loop,Load spike above nominal range,Activate monitoring per GUID_0010,IN_PROGRESS,2024-10-15T13:15:30Z,10800
+2024-10-15T12:30:00Z,NODE_C,INC_003,ERR_SYNC_LOSS,communication,critical,inter_node_sync,Synchronization lost with NODE_A and NODE_B,Initiate emergency safe shutdown,COMPLETED,2024-10-15T13:15:30Z,3330
+2024-10-15T13:16:00Z,NODE_C,INC_003,ERR_RECOVERY_ACTIVE,recovery,info,system_wide,Recovery procedures initiated across cluster,Force sync and restore nominal state,COMPLETED,2024-10-15T14:00:15Z,2655
+2024-10-15T10:30:15Z,NODE_A,INC_004,ERR_VALVE_FAULT,hardware,critical,valve_control_A3,Valve A3 showing intermittent failures,Activate bypass per GUID_0011,COMPLETED,2024-10-15T10:33:00Z,165
+2024-10-15T11:30:45Z,NODE_A,INC_004,ERR_BYPASS_ACTIVE,recovery,warning,valve_control_system,Valve bypass A3 active - operating in degraded mode,System operating on redundant path,ONGOING,null,null
+2024-10-15T15:30:15Z,NODE_C,INC_005,ERR_COMPONENT_FAULT,hardware,warning,COMP_TX_7,Component COMP_TX_7 showing intermittent signals,Test component and evaluate replacement,IN_PROGRESS,null,null
+2024-10-15T16:15:45Z,NODE_A,INC_006,ERR_HYSTERESIS_TUNE,performance,info,feedback_control,Fine-tuning hysteresis to reduce settling time,Apply tuning parameter GUID_0035,PENDING,null,null
+2024-10-15T09:00:00Z,NODE_A,INC_001,ERR_STARTUP,system,info,system_boot,NODE_A initialized and entered active state,Normal startup procedure,COMPLETED,2024-10-15T08:00:15Z,-3585
+2024-10-15T13:15:30Z,NODE_C,INC_003,ERR_MODE_RECOVERY,recovery,info,operational_mode,Recovered from maintenance mode back to active,System restored after safe shutdown,COMPLETED,2024-10-15T14:00:15Z,2745
+2024-10-15T14:05:00Z,NODE_C,INC_003,ERR_NOMINAL_STATE,system,info,system_state,System returned to nominal operational parameters,All nodes synchronized and stable,COMPLETED,2024-10-15T14:00:15Z,-288
+2024-10-15T08:05:00Z,NODE_B,INC_007,ERR_INIT_SUCCESS,system,info,system_boot,NODE_B initialized in active state,Normal startup sequence,COMPLETED,2024-10-15T08:15:30Z,630
+2024-10-15T08:10:00Z,NODE_C,INC_008,ERR_INIT_SUCCESS,system,info,system_boot,NODE_C initialized in standby state,Normal startup sequence,COMPLETED,2024-10-15T08:45:00Z,2100
+2024-10-15T10:45:00Z,NODE_B,INC_002,ERR_STABILIZATION,performance,info,control_system,Control system stabilized after parameter adjustments,Nominal performance restored,COMPLETED,2024-10-15T10:45:00Z,0
+2024-10-15T12:50:15Z,NODE_A,INC_001,ERR_COOLING_RESTART_DONE,recovery,info,cooling_subsystem,Cooling subsystem restart completed successfully,Validation passed on critical path,COMPLETED,2024-10-15T12:45:00Z,-15
+2024-10-15T13:36:15Z,NODE_A,INC_001,ERR_LOAD_NORMAL,performance,info,primary_control_loop,Load returned to normal ranges,System fully recovered from INC_001,COMPLETED,2024-10-15T13:36:15Z,0
