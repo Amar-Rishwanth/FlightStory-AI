@@ -1,0 +1,36 @@
+guid_timestamp,target_system,guidance_id,guidance_type,recommended_action,priority,confidence_level,source_component,status,applied_by
+2024-10-15T08:00:30Z,NODE_A,GUID_0001,PARAMETER_OPTIMIZATION,Increase primary threshold to 75.0,medium,0.82,monitoring_engine,PENDING,null
+2024-10-15T08:15:45Z,NODE_B,GUID_0002,STATE_TRANSITION,Switch to diagnostic mode for analysis,high,0.95,health_monitor,ACKNOWLEDGED,OP_002
+2024-10-15T08:31:00Z,NODE_A,GUID_0003,MAINTENANCE,Restart cooling subsystem to clear transient faults,high,0.88,fault_analyzer,PENDING,null
+2024-10-15T08:46:15Z,NODE_C,GUID_0004,ALERT_ACTION,Acknowledge alert ALT_2847 and review event log,medium,0.75,alert_system,ACKNOWLEDGED,OP_003
+2024-10-15T09:01:30Z,NODE_A,GUID_0005,PARAMETER_OPTIMIZATION,Increase secondary threshold to 50.0 per load analysis,high,0.91,trend_analyzer,ACCEPTED,OP_001
+2024-10-15T09:16:45Z,NODE_B,GUID_0006,CONFIGURATION,Load backup configuration v2 to stabilize system,high,0.89,config_manager,ACCEPTED,OP_002
+2024-10-15T09:32:00Z,NODE_C,GUID_0007,SAFETY_OVERRIDE,Temporarily disable safety lock for maintenance,critical,0.85,safety_system,ACCEPTED,OP_003
+2024-10-15T09:47:15Z,NODE_A,GUID_0008,DIAGNOSTIC,Run full system diagnostic to validate health,medium,0.78,diagnostics,PENDING,null
+2024-10-15T10:02:30Z,NODE_B,GUID_0009,PARAMETER_TUNING,Adjust damping factor to 0.85 to reduce oscillation,medium,0.79,control_system,ACCEPTED,OP_002
+2024-10-15T10:17:45Z,NODE_C,GUID_0010,MONITORING,Enable continuous monitoring on critical components,high,0.83,supervisor,PENDING,null
+2024-10-15T10:33:00Z,NODE_A,GUID_0011,SYSTEM_BYPASS,Activate valve control bypass A3 to route around fault,critical,0.92,fault_recovery,ACCEPTED,OP_001
+2024-10-15T10:48:15Z,NODE_B,GUID_0012,THRESHOLD_RESET,Reset all active thresholds to factory defaults,medium,0.76,config_system,ACCEPTED,OP_002
+2024-10-15T11:03:30Z,NODE_C,GUID_0013,STATUS_VERIFICATION,Check heat exchanger status and validate readings,medium,0.72,diagnostics,ACKNOWLEDGED,OP_003
+2024-10-15T11:18:45Z,NODE_A,GUID_0014,PRIORITY_ESCALATION,Escalate NODE_A priority level to high,high,0.86,priority_mgr,ACCEPTED,OP_001
+2024-10-15T11:34:00Z,NODE_B,GUID_0015,ALERT_SUPPRESSION,Clear alert ALT_2891 and suppress similar patterns,medium,0.77,alert_system,ACCEPTED,OP_002
+2024-10-15T11:49:15Z,NODE_C,GUID_0016,TUNING,Adjust feedback gain to 1.2 for improved response,medium,0.81,control_tuner,ACCEPTED,OP_003
+2024-10-15T12:04:30Z,NODE_A,GUID_0017,BACKUP,Trigger full state capture backup immediately,high,0.87,backup_mgr,PENDING,null
+2024-10-15T12:19:45Z,NODE_B,GUID_0018,COMMUNICATION_CHECK,Test communication link to NODE_A,low,0.68,network_monitor,ACCEPTED,OP_002
+2024-10-15T12:35:00Z,NODE_C,GUID_0019,RECOVERY_PREP,Prepare for standby mode following maintenance,high,0.84,recovery_system,PENDING,null
+2024-10-15T12:50:15Z,NODE_A,GUID_0020,MAINTENANCE_COMPLETE,Cooling subsystem restart completed successfully,high,0.96,fault_recovery,APPLIED,OP_001
+2024-10-15T13:05:30Z,NODE_B,GUID_0021,PARAMETER_ADJUSTMENT,Update refresh rate to 2000ms,low,0.65,performance_tuner,ACCEPTED,OP_002
+2024-10-15T13:20:45Z,NODE_C,GUID_0022,EMERGENCY_ACTION,Initiate safe shutdown protocol per operator request,critical,0.94,emergency_system,APPLIED,OP_003
+2024-10-15T13:36:00Z,NODE_A,GUID_0023,VALIDATION,Validate critical path execution integrity,medium,0.80,validator,PENDING,null
+2024-10-15T13:51:15Z,NODE_B,GUID_0024,STATE_CAPTURE,Create state snapshot SNAP_4521 for recovery reference,medium,0.78,snapshot_mgr,APPLIED,OP_002
+2024-10-15T14:06:30Z,NODE_C,GUID_0025,THRESHOLD_CONFIG,Set isolation threshold to 40.0,medium,0.74,config_system,ACCEPTED,OP_003
+2024-10-15T14:21:45Z,NODE_A,GUID_0026,REDUNDANCY_ENABLE,Enable redundancy control on NODE_A,high,0.89,redundancy_mgr,ACCEPTED,OP_001
+2024-10-15T14:37:00Z,NODE_B,GUID_0027,LOG_EXPORT,Export NODE_B logs for offline analysis,low,0.70,data_mgr,APPLIED,OP_002
+2024-10-15T14:52:15Z,NODE_C,GUID_0028,CONTINUOUS_MONITORING,Activate continuous watch mode on critical components,high,0.85,supervisor,PENDING,null
+2024-10-15T15:07:30Z,NODE_A,GUID_0029,RATE_LIMIT_UPDATE,Update rate limit parameter to 150,low,0.66,performance_tuner,ACCEPTED,OP_001
+2024-10-15T15:22:45Z,NODE_B,GUID_0030,SOFT_RESET,Perform soft reset on NODE_B,medium,0.79,system_admin,APPLIED,OP_002
+2024-10-15T15:38:00Z,NODE_C,GUID_0031,COMPONENT_TEST,Test component COMP_TX_7 for proper operation,medium,0.73,tester,PENDING,null
+2024-10-15T15:53:15Z,NODE_A,GUID_0032,ACCEPTANCE_CONFIRM,Operator confirmed acceptance of guidance GUID_5612,high,0.98,supervisor,APPLIED,OP_001
+2024-10-15T16:08:30Z,NODE_B,GUID_0033,ALERT_PATTERN_SUPPRESS,Suppress temperature spike alert patterns,medium,0.75,alert_system,APPLIED,OP_002
+2024-10-15T16:23:45Z,NODE_C,GUID_0034,FORCE_SYNCHRONIZATION,Force manual synchronization with other nodes,critical,0.91,sync_mgr,APPLIED,OP_003
+2024-10-15T16:39:00Z,NODE_A,GUID_0035,HYSTERESIS_TUNE,Adjust hysteresis parameter to 5.0,low,0.67,tuning_engine,ACCEPTED,OP_001
