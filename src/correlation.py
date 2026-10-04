@@ -69,31 +69,31 @@ def _relationship_reason(event_a: NormalizedEvent, event_b: NormalizedEvent, win
 
     delta_seconds = abs((event_a.timestamp - event_b.timestamp).total_seconds())
 
+    # same node: only attach if both are fault/recovery domain events
     if event_a.node == event_b.node and delta_seconds <= window_seconds:
-        return "same node + temporal proximity"
+        if _is_fault_event(event_a) or _is_recovery_event(event_a) or _is_fault_event(event_b) or _is_recovery_event(event_b):
+            return "same node + temporal proximity (fault/recovery context)"
 
+    # cross-node: only attach if there is explicit semantic relationship
     if event_a.node != event_b.node and delta_seconds <= window_seconds:
-        if _is_fault_event(event_a) and event_b.log_family == "guidance_events":
-            return "fault associated with guidance"
         if _is_fault_event(event_a) and _is_recovery_event(event_b):
             return "fault associated with recovery"
-        if event_a.log_family == "system_state" and _is_fault_event(event_b):
-            return "state change associated with fault"
-        if event_a.log_family == "operator_actions" and _is_fault_event(event_b):
-            return "operator action associated with fault"
+        if _is_recovery_event(event_a) and _is_fault_event(event_b):
+            return "recovery associated with fault"
 
     return None
 
 
 def correlate_events(events: List[NormalizedEvent], correlation_window_seconds: int = 1800) -> List[Incident]:
     """
-    Groups normalized events into deterministic, explainable incidents.
+    Groups normalized events into deterministic, explainable incidents conservatively.
 
     rules:
     - preserve explicit incident IDs from source raw_record (e.g. INC_001)
-    - same-node events within the time window are linked
-    - cross-node events are linked only with meaningful relationship + time proximity
+    - same-node events within the time window are linked ONLY if fault/recovery domain
+    - cross-node events are linked ONLY with explicit semantic relationship
     - do not claim causality; use association language only
+    - prefer isolation over over-grouping
     """
     if not events:
         return []
@@ -139,37 +139,45 @@ def correlate_events(events: List[NormalizedEvent], correlation_window_seconds: 
 
     for event in unassigned:
         matched = False
-        for incident_id, incident in incidents.items():
-            if event.timestamp < incident.start_time - timedelta(seconds=correlation_window_seconds):
-                continue
-            if event.timestamp > incident.end_time + timedelta(seconds=correlation_window_seconds):
-                continue
+        best_match_incident_id: Optional[str] = None
+        best_match_reason: Optional[str] = None
+        best_match_confidence: float = 0.0
 
+        for incident_id, incident in incidents.items():
+            # only consider incidents where the event falls within a narrow window
+            # do not extend window based on incident boundaries expanding
             for existing_event in incident.events:
                 reason = _relationship_reason(existing_event, event, correlation_window_seconds)
                 if reason is None:
                     continue
 
-                incident.events.append(event)
-                incident.nodes.append(event.node)
-                incident.start_time = min(incident.start_time, event.timestamp)
-                incident.end_time = max(incident.end_time, event.timestamp)
-                incident.duration_seconds = (incident.end_time - incident.start_time).total_seconds()
-                if _is_fault_event(event):
-                    incident.fault_events.append(event)
-                if _is_recovery_event(event):
-                    incident.recovery_events.append(event)
-
+                # Calculate confidence based on proximity and reason
+                delta_seconds = abs((existing_event.timestamp - event.timestamp).total_seconds())
                 reason_confidence = 0.85 if "same node" in reason else 0.70
-                incident.correlation_reasons.append(CorrelationReason(reason=reason, confidence=reason_confidence))
-                event_to_incident[event.evidence_id] = incident_id
-                matched = True
-                break
+                time_confidence = max(0.2, 1.0 - (delta_seconds / correlation_window_seconds))
+                combined_confidence = reason_confidence * time_confidence
 
-            if matched:
-                break
+                if combined_confidence > best_match_confidence:
+                    best_match_confidence = combined_confidence
+                    best_match_incident_id = incident_id
+                    best_match_reason = reason
+                    matched = True
 
-        if not matched:
+        if matched and best_match_incident_id and best_match_reason:
+            incident = incidents[best_match_incident_id]
+            incident.events.append(event)
+            incident.nodes.append(event.node)
+            incident.start_time = min(incident.start_time, event.timestamp)
+            incident.end_time = max(incident.end_time, event.timestamp)
+            incident.duration_seconds = (incident.end_time - incident.start_time).total_seconds()
+            if _is_fault_event(event):
+                incident.fault_events.append(event)
+            if _is_recovery_event(event):
+                incident.recovery_events.append(event)
+
+            incident.correlation_reasons.append(CorrelationReason(reason=best_match_reason, confidence=best_match_confidence))
+            event_to_incident[event.evidence_id] = best_match_incident_id
+        else:
             generated_id = f"GEN_{len(incidents) + 1:03d}"
             incidents[generated_id] = Incident(
                 incident_id=generated_id,
